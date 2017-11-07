@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'password','username','roles'
     ];
 
     /**
@@ -24,6 +24,35 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token'
     ];
+  
+    public function roles()
+    {
+        return $this->belongsToMany('\App\Role');
+    }
+  
+    public function hasAccess()
+    {
+       return $this->hasOneOfThisRoles(['boss','gerant','respo'])?true:abort(401,"You don't have the right!!!");
+    }
+
+    public function hasRole($role)
+    {
+        if ($this->roles()->where('name', $role)->first()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function hasOneOfThisRoles($roles)
+    {
+        foreach ($roles as $role) {
+            if ($this->roles()->where('name', $role)->first()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
