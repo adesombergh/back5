@@ -22,7 +22,7 @@ class CreateServicesTable extends Migration
             $table->integer('schema_bonus')->unsigned()->nullable();
             $table->foreign('schema_bonus')->references('id')->on('bonuses');
 
-            $table->timestamp('quand');
+            $table->dateTime('quand');
             $table->timestamps();
         });
     }

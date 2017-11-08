@@ -102,7 +102,7 @@ class ServiceTableSeeder extends Seeder
                 'service'=>$service->id,
             ]);
 
-            event(new ServiceStored($service));
+             event(new ServiceStored($service));
 
         }
 

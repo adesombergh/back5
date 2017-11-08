@@ -17,7 +17,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'name' => $faker->name,
+        'name' => $faker->firstName,
         'username' => $faker->unique()->username,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
@@ -26,10 +26,9 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Service::class, function (Faker\Generator $faker) {
     return [
-        'quand' => $faker->dateTime,
         'qui' => function () {
             return factory(App\User::class)->create()->id;
-        },
+        }
     ];
 });
 
