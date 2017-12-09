@@ -10,7 +10,11 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">   </head>
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/pickadate/default.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/pickadate/default.date.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/pickadate/default.time.css') }}" rel="stylesheet">
+    </head>
     <body>
         <div id="app">
             <div class="container">
@@ -63,5 +67,10 @@
         </div><!-- DIV.APP -->
     <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/pickadate/picker.js') }}"></script>
+        <script src="{{ asset('js/pickadate/pickfr.js') }}"></script>
+        <script src="{{ asset('js/pickadate/picker.date.js') }}"></script>
+        <script src="{{ asset('js/pickadate/picker.time.js') }}"></script>
+        <script src="{{ asset('js/script.js') }}"></script>
     </body>
 </html>

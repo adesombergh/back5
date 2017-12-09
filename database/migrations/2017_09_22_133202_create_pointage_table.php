@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCaissesTable extends Migration
+class CreatePointageTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateCaissesTable extends Migration
      */
     public function up()
     {
-        Schema::create('caisses', function (Blueprint $table) {
+        Schema::create('pointage', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->integer('service_id')->unsigned();
-            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
+            
+            $table->float('pointe', 7, 2);
+            $table->float('banque', 7, 2);
+            $table->boolean('full_day');
 
             $table->timestamps();
         });
@@ -30,6 +31,6 @@ class CreateCaissesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('caisses');
+        Schema::dropIfExists('pointage');
     }
 }

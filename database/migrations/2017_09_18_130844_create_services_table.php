@@ -22,6 +22,9 @@ class CreateServicesTable extends Migration
             $table->integer('schema_bonus')->unsigned()->nullable();
             $table->foreign('schema_bonus')->references('id')->on('bonuses');
 
+            $table->boolean('verified');
+            $table->boolean('brunch');
+
             $table->dateTime('quand');
             $table->timestamps();
         });
