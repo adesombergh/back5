@@ -31,6 +31,11 @@ class CreateServicesTable extends Migration
             $table->integer('billet50')->nullable();
             $table->integer('billet100')->nullable();
 
+            $table->float('z_service',8,2)->nullable();
+            $table->float('z_jour',8,2)->nullable();
+
+            $table->float('banque',8,2)->nullable();
+
             $table->integer('schema_bonus')->unsigned()->nullable();
             $table->foreign('schema_bonus')->references('id')->on('bonuses');
 
