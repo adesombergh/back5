@@ -16,18 +16,16 @@ class DatabaseSeeder extends Seeder
         \Illuminate\Support\Facades\Artisan::call('migrate:refresh');
         
         $this->call(BonusTableSeeder::class);
-
-        $this->call(EntreeTypesSeeder::class);
         
         $this->call(OptionTableSeeder::class);
 
         $this->call(RoleTableSeeder::class);
 
-        $this->call(SortieTypeSeeder::class);
+        //$this->call(SortieTypeSeeder::class);
 
         //$this->call(UserTableSeeder::class);
 
-        $this->call(CommentsTypeTableSeeder::class);
+        //$this->call(CommentsTypeTableSeeder::class);
 
         //$this->call(ServiceTableSeeder::class);
     }

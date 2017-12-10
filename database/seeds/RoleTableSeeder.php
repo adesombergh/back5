@@ -20,12 +20,12 @@ class RoleTableSeeder extends Seeder
 			'bar',
 			'cuisine',
 			'secu',
-			'salaire',
 			'horaire',
 			'fixe',
 			'prestation',
 			'banque',
-			'hasBonus'
+			'hasBonus',
+			'fired'
 		];
 
 

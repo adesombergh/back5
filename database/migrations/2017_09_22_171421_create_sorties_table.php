@@ -16,8 +16,8 @@ class CreateSortiesTable extends Migration
         Schema::create('sorties', function (Blueprint $table) {
             $table->increments('id');
             
-            $table->integer('caisse_id')->unsigned();
-            $table->foreign('caisse_id')->references('id')->on('caisses')->onDelete('cascade');
+            $table->integer('service_id')->unsigned();
+            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
 
             $table->integer('type')->unsigned();
             $table->foreign('type')->references('id')->on('sortie_types');

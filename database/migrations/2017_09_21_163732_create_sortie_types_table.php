@@ -17,7 +17,9 @@ class CreateSortieTypesTable extends Migration
             $table->increments('id');
 
             $table->string('name');
+            $table->string('type');
             $table->string('options');
+            $table->string('old_id');
         });
     }
 

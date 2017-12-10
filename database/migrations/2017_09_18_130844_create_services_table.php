@@ -16,16 +16,24 @@ class CreateServicesTable extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('qui')->unsigned();
+            $table->integer('qui')->unsigned()->nullable();
             $table->foreign('qui')->references('id')->on('users');
+
+            $table->dateTime('quand');
+            $table->string('type',11);
+            $table->boolean('brunch');
+            $table->boolean('verified');
+
+            $table->float('pieces',6,2)->nullable();
+            $table->integer('billet5')->nullable();
+            $table->integer('billet10')->nullable();
+            $table->integer('billet20')->nullable();
+            $table->integer('billet50')->nullable();
+            $table->integer('billet100')->nullable();
 
             $table->integer('schema_bonus')->unsigned()->nullable();
             $table->foreign('schema_bonus')->references('id')->on('bonuses');
 
-            $table->boolean('verified');
-            $table->boolean('brunch');
-
-            $table->dateTime('quand');
             $table->timestamps();
         });
     }
