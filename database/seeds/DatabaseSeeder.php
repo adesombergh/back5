@@ -15,9 +15,9 @@ class DatabaseSeeder extends Seeder
     {
         \Illuminate\Support\Facades\Artisan::call('migrate:refresh');
         
-        $this->call(BonusTableSeeder::class);
+        // $this->call(BonusTableSeeder::class);
         
-        $this->call(OptionTableSeeder::class);
+        // $this->call(OptionTableSeeder::class);
 
         $this->call(RoleTableSeeder::class);
 

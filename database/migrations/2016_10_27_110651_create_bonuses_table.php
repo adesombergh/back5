@@ -20,7 +20,7 @@ class CreateBonusesTable extends Migration
             $table->float('bonus_initial',6,2);
             $table->integer('paliers_suivants');
             $table->float('supplement',6,2);
-            $table->string('concerne');
+            $table->string('concerne')->nullable();
             $table->boolean('actif');
             $table->string('type_de_service');
             $table->timestamps();
