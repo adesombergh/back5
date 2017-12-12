@@ -16,7 +16,7 @@ class CreateCoffresTable extends Migration
         Schema::create('coffres', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('qui')->unsigned();
+            $table->integer('qui')->unsigned()->nullable();
             $table->foreign('qui')->references('id')->on('users');
 
             $table->float('vrac',6,2)->nullable();

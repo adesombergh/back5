@@ -18,7 +18,7 @@ class CreateImpayesTable extends Migration
 
             $table->string('client');
 
-            $table->integer('qui')->unsigned();
+            $table->integer('qui')->unsigned()->nullable();
             $table->foreign('qui')->references('id')->on('users');
 
             $table->float('combien',6,3);

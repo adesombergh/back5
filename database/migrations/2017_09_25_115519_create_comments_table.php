@@ -18,8 +18,9 @@ class CreateCommentsTable extends Migration
 
             $table->integer('type')->unsigned();
             $table->foreign('type')->references('id')->on('comment_types');
+
             $table->integer('service')->unsigned();
-            $table->foreign('service')->references('id')->on('services')->onDelete('cascade');;
+            $table->foreign('service')->references('id')->on('services')->onDelete('cascade');
 
             $table->text('content');
 

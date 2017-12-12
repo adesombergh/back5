@@ -19,7 +19,7 @@ class CreateMessagesTable extends Migration
             $table->text('content');
             $table->string('status');
 
-            $table->integer('qui')->unsigned();
+            $table->integer('qui')->unsigned()->nullable();
             $table->foreign('qui')->references('id')->on('users');
 
             $table->timestamps();

@@ -19,7 +19,7 @@ class CreateSortiesTable extends Migration
             $table->integer('service_id')->unsigned();
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
 
-            $table->integer('type')->unsigned();
+            $table->integer('type')->unsigned()->nullable();
             $table->foreign('type')->references('id')->on('sortie_types');
 
 
