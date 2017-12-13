@@ -16,14 +16,14 @@ class CreateImpayesTable extends Migration
         Schema::create('impayes', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('client');
+            $table->string('client')->nullable();
 
             $table->integer('qui')->unsigned()->nullable();
             $table->foreign('qui')->references('id')->on('users');
 
             $table->float('combien',6,3);
             
-            $table->string('status');
+            $table->boolean('due');
 
             $table->timestamps();
         });

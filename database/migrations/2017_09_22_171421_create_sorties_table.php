@@ -23,10 +23,10 @@ class CreateSortiesTable extends Migration
             $table->foreign('type')->references('id')->on('sortie_types');
 
 
-            $table->string('desc');
+            $table->string('desc')->nullable();
             $table->float('value',8,2);
 
-            $table->boolean('facture');
+            $table->boolean('facture')->nullable();
 
             $table->integer('qui')->unsigned()->nullable();
             $table->foreign('qui')->references('id')->on('users');

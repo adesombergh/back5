@@ -17,7 +17,7 @@ class CreateMessagesTable extends Migration
             $table->increments('id');
 
             $table->text('content');
-            $table->string('status');
+            $table->boolean('actif');
 
             $table->integer('qui')->unsigned()->nullable();
             $table->foreign('qui')->references('id')->on('users');

@@ -18,8 +18,8 @@ class CreateSortieTypesTable extends Migration
 
             $table->string('name');
             $table->string('type');
-            $table->string('options');
-            $table->string('old_id');
+            $table->string('options')->nullable();
+            $table->string('old_id')->nullable();
         });
     }
 

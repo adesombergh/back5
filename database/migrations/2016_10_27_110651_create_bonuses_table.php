@@ -17,9 +17,9 @@ class CreateBonusesTable extends Migration
             $table->increments('id');
             $table->integer('taille_equipe');
             $table->integer('seuil_initial');
-            $table->float('bonus_initial',6,2);
-            $table->integer('paliers_suivants');
-            $table->float('supplement',6,2);
+            $table->float('bonus_initial',6,2)->nullable();
+            $table->integer('paliers_suivants')->nullable();
+            $table->float('supplement',6,2)->nullable();
             $table->string('concerne')->nullable();
             $table->boolean('actif')->nullable();
             $table->string('type_de_service');
