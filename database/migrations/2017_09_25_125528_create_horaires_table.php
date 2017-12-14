@@ -30,6 +30,8 @@ class CreateHorairesTable extends Migration
 
             $table->float('prestation', 8, 2)->nullable();
 
+            $table->float('taux', 8, 2)->nullable();
+
             $table->integer('by')->unsigned()->nullable();
             $table->foreign('by')->references('id')->on('users');
 
