@@ -14,12 +14,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \Illuminate\Support\Facades\Artisan::call('migrate:refresh');
-        
-        // $this->call(BonusTableSeeder::class);
-        
-        // $this->call(OptionTableSeeder::class);
 
         $this->call(RoleTableSeeder::class);
+        
+        //$this->call(Transit::class);
+        
+        // $this->call(OptionTableSeeder::class);
 
         //$this->call(SortieTypeSeeder::class);
 
