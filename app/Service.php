@@ -9,14 +9,32 @@ class Service extends Model
 {
     protected $fillable = ['qui','quand'];
 
+	/********************************************************
+	 * 						RELATIONS
+	 ********************************************************/
     public function bonus_schema()
     {
-    	return $this->belongsTo('\App\Bonus','schema_bonus');
+    	return $this->hasOne('\App\Bonus','schema_bonus');
     }
 
-    public function caisse()
+    public function sorties()
     {
-    	return $this->hasOne('\App\Caisse');
+    	return $this->hasMany('\App\Sortie');
+	}
+	
+    public function tickets()
+    {
+    	return $this->hasMany('\App\Tickets');
+	}
+	
+    public function user()
+    {
+    	return $this->belongsTo('\App\User','qui');
+    }
+
+    public function comments()
+    {
+    	return $this->hasMany('\App\Comment','service');
     }
 
     public function horaires($role = "*")
@@ -30,96 +48,76 @@ class Service extends Model
     	return $horaires;
     }
 
-    public function user()
-    {
-    	return $this->belongsTo('\App\User','qui');
-    }
 
-    public function comments()
-    {
-    	return $this->hasMany('\App\Comment','service');
-    }
 
-	public function getStatusAttribute()
+
+	/********************************************************
+	 * 						GETTERS
+	 ********************************************************/
+	static function getServicesBetween($start,$end)
 	{
-		$status = 0;
-		if( $this->horaires()->count() && $this->caisse->chiffre()){
-			$status = 3;
-		} elseif ( !$this->horaires()->count() && $this->caisse->chiffre()) {
-			$status = 2;
-		} elseif ( $this->horaires()->count() && !$this->caisse->chiffre()) {
-			$status = 1;
-		} 
-	    return $status;
+		return Service::
+			whereDate('quand','>=',$start)
+			->whereDate('quand','<',$end)
+			->get();
 	}
-
-	public function getEtatAttribute()
-	{
-		if( $this->horaires()->count() && $this->caisse->chiffre()){
-			$etat = "Fini";
-		} elseif ( !$this->horaires()->count() && $this->caisse->chiffre()) {
-			$etat = "Caisse Complète, Horaires Incomplets";
-		} elseif ( $this->horaires()->count() && !$this->caisse->chiffre()) {
-			$etat = "Caisse Incomplète, Horaires Complets";
-		} else{
-			$etat = "Vide";
-		}
-	    return $etat;
-	}
-
-	public function getPrettyDateAttribute()
-	{
-		$date = new Date($this->quand);
-	    return ucfirst($date->format('D., j M'));
-	}
-
-	public function getDateAttribute()
-	{
-		$date = new Date($this->quand);
-	    return ucfirst($date->format('j/m'));
-	}
-
-	public function getDateTypeAttribute()
-	{
-		if (strpos($this->quand,"08:00:00")) {
-			return "jour";
-		}
-	    return "soir";
-	}
-
-	public function getServiceTypeAttribute()
-	{
-		$date = new Date($this->quand);
-		$weekday = $date->format('N');
-
-		$suffix = 'semaine';
-		if ($this->date_type == "soir") {
-			if ($weekday == 5 || $weekday == 6) {
-				$suffix = 'weekend';
-			}
-		} else {
-			if ($weekday == 6 || $weekday == 7) {
-				$suffix = 'weekend';
-			}
-		}
-		return $this->date_type.$suffix;
-	}
-
 	public function getFiniAttribute()
 	{
 		return ($this->horaires()->count() && $this->caisse->chiffre());
 	}
+	public function getAvances()
+    {
+        return $this->sorties->where('type', \App\SortieType::where('name','Avance')->get()->first()->id );
+    }
+	/********************************************************
+	 * 						CALCULATIONS
+	 ********************************************************/
+	public function chiffre()
+    {
+    	$sorties = $this->totalSorties();
+        $entrees = $this->totalEntrees();
+        $tickets = $this->totalTickets();
+    	return $sorties + $entrees;
+	}
+	public function totalTickets()
+	{
+		dd($this);
+		// echo($this->tickets->count());
+		die();
+	}
 
+	public function totalSorties()
+    {
+    	return $this->sorties->sum('value');
+	}
+	
+    public function totalEntrees()
+    {
+		$entrees = [	
+			'pieces' => 1,
+			'billet5' => 5,
+			'billet10' => 10,
+			'billet20' => 20,
+			'billet50' => 50,
+			'billet100' => 100,
+		];
+		$total = 0;
+		foreach ($entrees as $champ => $facteur) {
+			$total += $this->$champ * $facteur;
+		}
+        return $total;
+	}
+	
+	public function calcBonus()
+	{
+		return $this->bonus_schema->calcBonus( $this->caisse->chiffre() );
+	}
+	/********************************************************
+	 * 						SETTERS
+	 ********************************************************/
 	public function storeSchemaBonus($b_id)
 	{
 		$this->schema_bonus = $b_id;
 		$this->save();
 	}
-
-	public function calcBonus()
-	{
-		return $this->bonus_schema->calcBonus( $this->caisse->chiffre() );
-	}
-
-
 }
