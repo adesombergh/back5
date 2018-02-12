@@ -20,4 +20,10 @@ class Sortie extends Model
     	//\App\SortieType::where('id',$sortie->type)->get()->first()->name;
     	return \App\SortieType::where('id',$this->type)->get()->first();
     }
+
+    public function getAvances()
+    {
+        return $this->sorties->where('type', \App\SortieType::where('name','Avance')->get()->first()->id );
+    }
+
 }

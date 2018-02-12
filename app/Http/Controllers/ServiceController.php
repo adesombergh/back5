@@ -6,6 +6,9 @@ use App\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use \Carbon\Carbon;
+use App\Http\Resources\ServiceCollection;
+use App\Http\Resources\ServiceResource;
 
 class ServiceController extends Controller
 {
@@ -14,11 +17,15 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($date = null)
     {
-        $services = Service::all()->take(14);
-        return view('services.index', ['services' => $services]);
-    }
+        $date = new Carbon($date);
+        Carbon::setTestNow($date);
+        $monday = new Carbon('last monday');
+        $nextMonday = new Carbon('next monday');
+        $services = Service::getServicesBetween($monday,$nextMonday);
+        return new ServiceCollection(ServiceResource::collection($services));
+     }
 
     /**
      * Show the form for creating a new resource.
@@ -54,7 +61,7 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        return view('services.show', ['service' => $service]);
+        return $service;
     }
 
     /**
